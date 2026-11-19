@@ -13,14 +13,14 @@ Check `package.json` and config files for the runner and libraries already in us
 
 ## Choose the level by what the code is
 
-| Code under test | Level | Tool |
-|---|---|---|
-| Pure functions, schemas (Zod), formatters, reducers, `cn`/utility logic | Unit | Vitest |
-| Custom hooks with logic | Unit | Vitest + `renderHook` |
-| **Client Components** (`"use client"`) | Component | Vitest + Testing Library |
-| **Async Server Components**, layouts, route-level data flows, `proxy.ts` redirects, caching behavior | **E2E** | Playwright against a production build |
-| **Server Actions** | Unit the logic (validation, auth, data access functions) + e2e the form wiring | Vitest + Playwright |
-| Route Handlers (`route.ts`) | Unit/integration: call the exported `GET`/`POST` with a `Request` and assert on the `Response` | Vitest |
+| Code under test                                                                                      | Level                                                                                          | Tool                                  |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------- |
+| Pure functions, schemas (Zod), formatters, reducers, `cn`/utility logic                              | Unit                                                                                           | Vitest                                |
+| Custom hooks with logic                                                                              | Unit                                                                                           | Vitest + `renderHook`                 |
+| **Client Components** (`"use client"`)                                                               | Component                                                                                      | Vitest + Testing Library              |
+| **Async Server Components**, layouts, route-level data flows, `proxy.ts` redirects, caching behavior | **E2E**                                                                                        | Playwright against a production build |
+| **Server Actions**                                                                                   | Unit the logic (validation, auth, data access functions) + e2e the form wiring                 | Vitest + Playwright                   |
+| Route Handlers (`route.ts`)                                                                          | Unit/integration: call the exported `GET`/`POST` with a `Request` and assert on the `Response` | Vitest                                |
 
 Key constraint: Testing Library and Vitest do not reliably render **async Server Components**. Do not fight this. Extract logic into plain functions and test those, keep Server Components thin, and cover them with Playwright. A synchronous Server Component that takes props and renders markup can be rendered in tests, but prefer e2e for anything involving data fetching.
 
